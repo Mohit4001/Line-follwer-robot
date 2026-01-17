@@ -1,0 +1,69 @@
+# Line Follower Robot using 8-Channel IR Sensor 🤖🛣️
+
+## 📌 Project Overview
+This project implements a **Line Follower Robot** using an **8-channel IR sensor array** and a microcontroller.  
+The robot detects and follows a black line on a white surface (or vice-versa) with **high accuracy**, even on curves and sharp turns.
+
+Using 8 IR sensors provides better line detection, stability, and control compared to basic 2-sensor or 4-sensor designs.
+
+---
+
+## 🎯 Objectives
+- To design a high-accuracy line follower robot  
+- To use an 8-channel IR sensor array for precise line detection  
+- To control robot movement based on real-time sensor data  
+- To improve turning accuracy and reduce oscillation  
+
+---
+
+## ⚙️ Components Used
+| Component | Quantity |
+|---------|----------|
+| Microcontroller (Arduino Uno / ESP32) | 1 |
+| 8-Channel IR Sensor Array | 1 |
+| Motor Driver (L298N / L293D) | 1 |
+| DC Geared Motors | 2 |
+| Robot Chassis | 1 |
+| Wheels | 2 |
+| Castor Wheel | 1 |
+| Battery (7.4V / 9V) | 1 |
+| Jumper Wires | As required |
+
+---
+
+## 🧠 Working Principle
+- Each IR sensor detects whether the surface below it is **black (line)** or **white (background)**.
+- The sensor array continuously sends digital signals to the microcontroller.
+- Based on the sensor pattern, the controller decides:
+  - Move forward
+  - Turn left
+  - Turn right
+- Motor speed and direction are adjusted to keep the robot aligned with the line.
+
+Using multiple sensors allows smoother turns, better curve handling, and improved accuracy.
+
+---
+
+## 🔌 Sensor Logic (Example)
+`1` → Line detected  
+`0` → No line detected  
+
+| Sensor Pattern | Robot Action |
+|---------------|--------------|
+| 00011000 | Move Forward |
+| 00001100 | Slight Right |
+| 00110000 | Slight Left |
+| 00000110 | Sharp Right |
+| 01100000 | Sharp Left |
+| 00000000 | Stop / Line Lost |
+
+---
+
+## 🛠️ Features
+- High-accuracy line tracking  
+- Smooth turning on curves  
+- Stable movement using multi-sensor input  
+- Suitable for robotics competitions  
+- Easy to upgrade with PID control  
+
+
