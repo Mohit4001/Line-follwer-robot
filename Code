@@ -1,0 +1,116 @@
+// Line Follower Robot using 8-Channel IR Sensor
+// Author: Mohit Kumar
+
+// IR sensor pins
+int ir[8] = {2,3,4,5,6,7,8,9};
+
+// Motor driver pins
+#define IN1 10
+#define IN2 11
+#define IN3 12
+#define IN4 13
+#define ENA 5
+#define ENB 6
+
+int baseSpeed = 150;
+
+void setup() {
+  for(int i=0;i<8;i++) {
+    pinMode(ir[i], INPUT);
+  }
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  int s[8];
+  for(int i=0;i<8;i++) {
+    s[i] = digitalRead(ir[i]);
+  }
+
+  // CENTER ON LINE
+  if(s[3]==1 && s[4]==1) {
+    forward();
+  }
+  // SLIGHT LEFT
+  else if(s[2]==1 || s[1]==1) {
+    left();
+  }
+  // SLIGHT RIGHT
+  else if(s[5]==1 || s[6]==1) {
+    right();
+  }
+  // SHARP LEFT
+  else if(s[0]==1) {
+    sharpLeft();
+  }
+  // SHARP RIGHT
+  else if(s[7]==1) {
+    sharpRight();
+  }
+  // LINE LOST
+  else {
+    stopRobot();
+  }
+}
+
+// ---------------- MOTOR FUNCTIONS ----------------
+
+void forward() {
+  analogWrite(ENA, baseSpeed);
+  analogWrite(ENB, baseSpeed);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void left() {
+  analogWrite(ENA, baseSpeed - 40);
+  analogWrite(ENB, baseSpeed);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void right() {
+  analogWrite(ENA, baseSpeed);
+  analogWrite(ENB, baseSpeed - 40);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void sharpLeft() {
+  analogWrite(ENA, 80);
+  analogWrite(ENB, baseSpeed);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void sharpRight() {
+  analogWrite(ENA, baseSpeed);
+  analogWrite(ENB, 80);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+}
+
+void stopRobot() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
