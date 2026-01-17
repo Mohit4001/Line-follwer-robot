@@ -1,0 +1,22 @@
+##Circuit connection
+#1️⃣ IR Sensor Array
+
+8 outputs → Arduino digital pins
+
+VCC → 5V
+
+GND → GND
+
+#2️⃣ Motor Driver (L298N)
+
+IN1–IN4 → Arduino digital pins
+
+ENA, ENB → Arduino PWM pins
+
+Motors → OUT1–OUT4
+
+#3️⃣ Power
+
+Battery → L298N
+
+Arduino GND + L298N GND common (
